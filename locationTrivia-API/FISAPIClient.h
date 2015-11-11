@@ -20,6 +20,6 @@ extern NSString * const base_url;
 
 +(void)deleteLocationsWithDetails:(NSString *)locationID withCompelationBlock:(void (^)(BOOL postLocation))compelationBlock;
 
-+(void)postTrvium;
++(void)postTrvium:(NSString *)trviaContent withCompelationBloack:(void (^)(BOOL postTravia))compelationBloack;
 
 @end

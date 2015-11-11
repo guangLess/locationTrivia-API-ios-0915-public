@@ -8,6 +8,8 @@
 
 #import "FISAddTriviaViewController.h"
 #import "FISTrivia.h"
+#import "FISLocationsDataStore.h"
+#import "FISTriviaTableViewController.h"
 
 @interface FISAddTriviaViewController ()
 
@@ -17,13 +19,21 @@
 
 @implementation FISAddTriviaViewController
 
-- (IBAction)saveTrivia:(id)sender {
-    FISTrivia *triviaItem = [[FISTrivia alloc] initWithContent:self.addtriviaTextField.text Likes:0];
-    [self.location.trivia addObject:triviaItem];
+-(IBAction)saveTrivia:(id)sender {
+    
+    FISTrivia *triviaItem = [[FISTrivia alloc] initWithContent:self.addtriviaTextField.text Likes:3];
+    FISLocationsDataStore * dataStore = [FISLocationsDataStore sharedLocationsDataStore];
+    
+    [dataStore addTrivia:triviaItem toLocation:self.location WithCompletion:^(BOOL success) {
+        if (success == YES) {
+            FISTriviaTableViewController * tvc = [FISTriviaTableViewController new];
+            [tvc.tableView reloadData];
+        }
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)cancel:(id)sender {
+-(IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -40,8 +50,7 @@
 {
     [super viewDidLoad];
     
-    
-}
+    }
 
 - (void)didReceiveMemoryWarning
 {

@@ -34,7 +34,7 @@
     }
     return self;
 }
-
+#pragma mark - location
 -(void)getallLocationsWithCompletion:(void (^)(BOOL success))completionBlock{
     
     [FISAPIClient getTheLocationFromApiwithCompletionBlock:^(NSArray * locations) {
@@ -98,6 +98,18 @@
     
     [FISAPIClient deleteLocationsWithDetails:idString withCompelationBlock:^(BOOL postLocation) {
         if (postLocation == YES) {
+            completionBlock(YES);
+        }
+    }];
+}
+
+#pragma mark travia
+
+-(void)addTrivia:(FISTrivia *)trivia toLocation:(FISLocation *)location WithCompletion:(void (^)(BOOL success))completionBlock{
+    
+    [FISAPIClient postTrvium:trivia.content withCompelationBloack:^(BOOL postTravia) {
+        if  (postTravia == YES){
+            [location.trivia addObject:trivia];
             completionBlock(YES);
         }
     }];

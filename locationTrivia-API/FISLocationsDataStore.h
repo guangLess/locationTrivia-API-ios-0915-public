@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FISLocation.h"
+#import "FISTrivia.h"
 
 @interface FISLocationsDataStore : NSObject
 
@@ -17,7 +18,11 @@
 - (instancetype)init;
 
 -(void)getallLocationsWithCompletion:(void (^)(BOOL success))completionBlock;
+
 -(void)addLocation:(FISLocation *)location;
+//-(void)addTrivia:(FISTrivia *)trivia toLocation:(FISLocation *)location;
+-(void)addTrivia:(FISTrivia *)trivia toLocation:(FISLocation *)location WithCompletion:(void (^)(BOOL success))completionBlock;
+
 -(void)deleteCell:(FISLocation *)location WithCompletion:(void (^)(BOOL success))completionBlock; //command point move the blink!
 
 

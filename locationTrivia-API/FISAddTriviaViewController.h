@@ -10,6 +10,7 @@
 #import "FISLocation.h"
 
 @interface FISAddTriviaViewController : UIViewController
+
 @property (strong, nonatomic) FISLocation *location;
 
 @end

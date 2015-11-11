@@ -67,15 +67,17 @@ NSString * const base_url = @"http://locationtrivia.herokuapp.com/locations.json
     }];
 }
 
-+(void)postTrvium{
++(void)postTrvium:(NSString *)trviaContent withCompelationBloack:(void (^)(BOOL postTravia))compelationBloack{
     AFHTTPSessionManager * sessionManager = [AFHTTPSessionManager manager];
+   
     NSDictionary * params = @{@"key":api_key,
-                              @"trivium[content]": @"holly cow cuttieCow"
+                              @"trivium[content]": trviaContent,
                               };
     NSString * travia = @"http://locationtrivia.herokuapp.com/locations/1251/trivia.json";
     
     [sessionManager POST:travia parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        compelationBloack(YES);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"Error: %@", error);
