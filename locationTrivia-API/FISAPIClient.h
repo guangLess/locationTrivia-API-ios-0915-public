@@ -10,6 +10,14 @@
 
 @interface FISAPIClient : NSObject
 
+extern NSString * const api_key; 
+extern NSString * const base_url;
 
+
++(void)getTheLocationFromApiwithCompletionBlock:(void (^)(NSArray *))locations;
+
++(void)postLocations;
+
++(void)postTrvium;
 
 @end

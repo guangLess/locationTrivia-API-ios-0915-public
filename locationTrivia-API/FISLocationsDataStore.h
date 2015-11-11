@@ -13,4 +13,6 @@
 @property (strong, nonatomic) NSMutableArray *locations;
 + (instancetype)sharedLocationsDataStore;
 - (instancetype)init;
+-(void)getallLocationsWithCompletion:(void (^)(BOOL success))completionBlock;
+
 @end
