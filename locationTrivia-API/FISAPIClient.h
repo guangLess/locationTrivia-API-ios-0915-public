@@ -16,7 +16,9 @@ extern NSString * const base_url;
 
 +(void)getTheLocationFromApiwithCompletionBlock:(void (^)(NSArray *))locations;
 
-+(void)postLocations;
++(void)postLocationsWithDetails:(NSDictionary *)locationInfo withCompelationBlock:(void (^)(BOOL postLocation))compelationBlock;
+
++(void)deleteLocationsWithDetails:(NSString *)locationID withCompelationBlock:(void (^)(BOOL postLocation))compelationBlock;
 
 +(void)postTrvium;
 

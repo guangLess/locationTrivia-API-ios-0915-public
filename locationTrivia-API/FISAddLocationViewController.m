@@ -29,7 +29,11 @@
     newLocation.name = self.nameInput.text;
     newLocation.latitude = @([self.latitudeInput.text floatValue]);
     newLocation.longitude = @([self.longitudeInput.text floatValue]);
-    [store.locations addObject:newLocation];
+    
+    [store addLocation:newLocation];
+    
+    //[store.locations addObject:newLocation];
+    // add the add method
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

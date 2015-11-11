@@ -15,8 +15,9 @@
 @property (strong, nonatomic) NSNumber *latitude;
 @property (strong, nonatomic) NSNumber *longitude;
 @property (strong, nonatomic) NSMutableArray *trivia;
+@property (strong, nonatomic) NSNumber *location_id;
 
-- (id) initWithName:(NSString *)name Latitude:(NSNumber *)latitude Longitude:(NSNumber *)longitude;
+- (id) initWithName:(NSString *)name Latitude:(NSNumber *)latitude Longitude:(NSNumber *)longitude location_id:(NSNumber *)location_id;
 
 - (NSString *)shortenedNameToLength:(NSInteger)length;
 - (BOOL)verifyLocation;

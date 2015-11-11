@@ -41,6 +41,8 @@
         NSLog(@"%@",self.store.locations);
     }];
     
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,38 +76,41 @@
     
     if ([segue.identifier isEqualToString:@"newLocation"]){
 
-
     } else if ([segue.identifier isEqualToString:@"trivia"]){
         NSIndexPath *ip = [self.tableView indexPathForSelectedRow];
         FISLocation *location = self.store.locations[ip.row];
         FISTriviaTableViewController *triviaVC = segue.destinationViewController;
         triviaVC.location = location;
     }
-
-
 }
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        FISLocation * cellLocation = self.store.locations[indexPath.row];
+        [self.store.locations removeObject:cellLocation];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+        [self.store deleteCell:cellLocation WithCompletion:^(BOOL success) {
+            if (success == YES){
+                [self.tableView reloadData];
+            }
+        }];
+        
+        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // dataStore delete then reload
+        
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.

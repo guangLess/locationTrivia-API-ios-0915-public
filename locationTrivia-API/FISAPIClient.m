@@ -32,24 +32,42 @@ NSString * const base_url = @"http://locationtrivia.herokuapp.com/locations.json
     }];
 }
 
-+(void)postLocations{
++(void)postLocationsWithDetails:(NSDictionary *)locationInfo withCompelationBlock:(void (^)(BOOL postLocation))compelationBlock{
     
     AFHTTPSessionManager * sessionManager = [AFHTTPSessionManager manager];
-    NSDictionary * params = @{@"key":api_key,
-                              @"location[name]":@"India",
-                              @"location[latitude]":@983,
-                              @"location[longitude]":@432,
-                              };
-    [sessionManager POST:@"http://locationtrivia.herokuapp.com/locations.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+    //NSDictionary *params = @{@"key": api_key};
+//    
+//   NSDictionary *params = @{@"key":api_key,
+//      @"location[name]":@"testOne",
+//      @"location[latitude]":@983,
+//      @"location[longitude]":@432,
+//                            };
+    NSDictionary * params = locationInfo;
 
+    [sessionManager POST:@"http://locationtrivia.herokuapp.com/locations.json" parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        compelationBlock(YES);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"Error: %@", error);
     }];
 }
 
-+(void)postTrvium{
++(void)deleteLocationsWithDetails:(NSString *)locationID withCompelationBlock:(void (^)(BOOL postLocation))compelationBlock{
+    AFHTTPSessionManager * sessionmanager = [AFHTTPSessionManager manager];
     
+    NSDictionary * params = @{@"key": api_key};
+
+    NSString * apiString = [NSString stringWithFormat: @"http://locationtrivia.herokuapp.com/locations/%@.json",locationID];
+    [sessionmanager DELETE:apiString parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject)
+     {
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        NSLog(@"deleteLocation statusCode %lu", response.statusCode);
+        compelationBlock(YES);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@" deleting location failed");
+    }];
+}
+
++(void)postTrvium{
     AFHTTPSessionManager * sessionManager = [AFHTTPSessionManager manager];
     NSDictionary * params = @{@"key":api_key,
                               @"trivium[content]": @"holly cow cuttieCow"
@@ -58,7 +76,7 @@ NSString * const base_url = @"http://locationtrivia.herokuapp.com/locations.json
     
     [sessionManager POST:travia parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSLog(@"JSON: %@", responseObject);
-
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"Error: %@", error);
     }];
